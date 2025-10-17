@@ -1,0 +1,38 @@
+{
+  "name": "Mystic Specialist #8508",
+  "symbol": "FUME",
+  "description": "A Mystic specialist, the heart of Fumegator Hospital. This eternal pass grants exclusive premium access and unique abilities.",
+  "image": "https://raw.githubusercontent.com/Miauhash/nft_fume/main/nfts/8508.webp",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Mystic"
+    },
+    {
+      "trait_type": "Specialist Bonus",
+      "value": "PRODUCTION_BOOST"
+    },
+    {
+      "trait_type": "Bonus Value",
+      "value": "0"
+    },
+    {
+      "trait_type": "Generation",
+      "value": "1"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "https://raw.githubusercontent.com/Miauhash/nft_fume/main/nfts/8508.webp",
+        "type": "image/webp"
+      }
+    ],
+    "creators": [
+      {
+        "address": "0x583f863de13C33A97B587797B76b255E834a65AC",
+        "share": 100
+      }
+    ]
+  }
+}

@@ -1,0 +1,915 @@
+/* ================================================================= */
+/* === STYLES/HOME.MODULE.CSS - VERSÃO FINAL COM LAYOUT CORRIGIDO  === */
+/* ================================================================= */
+
+/* --- FUNDO DE BATIMENTO CARDÍACO --- */
+@keyframes heartbeat {
+  from { background-position: 0 center; }
+  to { background-position: -1000px center; }
+}
+
+.canvas {
+  min-height: 100vh;
+  padding: 0;
+  color: var(--text-primary);
+  background-color: var(--lab-bg);
+  font-family: var(--font-primary);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 L350,50 L370,30 L390,70 L410,50 L600,50 L615,40 L625,60 L635,50 L1000,50' fill='none' stroke='%2300e5ff' stroke-width='2' stroke-opacity='0.2'/%3E%3C/svg%E"),
+    radial-gradient(rgba(31, 58, 90, 0.5) 1px, transparent 1px);
+  background-repeat: repeat-x, repeat;
+  background-position: 0 center, 0 0;
+  background-size: 1000px 100px, 20px 20px;
+  animation: heartbeat 10s linear infinite;
+  overflow-x: hidden;
+}
+
+/* --- Header e Navegação --- */
+.header {
+  display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 2rem;
+  background-color: rgba(3, 8, 15, 0.7); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--lab-border); position: sticky; top: 0; z-index: 100;
+}
+.brand { font-weight: 700; font-size: 1.8rem; color: var(--text-primary); text-shadow: 0 0 8px var(--cyan-glow); }
+.nav {
+  position: absolute; left: 50%; transform: translateX(-50%); display: flex;
+  flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.navTopRow, .navBottomRow {
+  display: flex; justify-content: center; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+
+/* --- Sistema de Botões --- */
+.cta {
+  padding: 0.6rem 1.2rem; border-radius: 5px; font-weight: 600;
+  transition: all 0.2s ease-in-out; display: flex; align-items: center;
+  gap: 0.5rem; cursor: pointer; border: 1px solid var(--lab-border);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.ctaSolid { background-color: var(--cyan-glow); color: var(--lab-bg); border-color: var(--cyan-glow); }
+.ctaSolid:hover:not(:disabled) { filter: brightness(1.2); box-shadow: 0 0 10px var(--cyan-glow); }
+.ctaGhost { background-color: transparent; color: var(--cyan-text); }
+.ctaGhost:hover:not(:disabled) { background-color: rgba(0, 229, 255, 0.1); border-color: var(--cyan-text); }
+.ctaAsylum { border-color: #8d47be; color: #d1b3ff; }
+.ctaAsylum:hover:not(:disabled) { background-color: rgba(141, 71, 190, 0.1); border-color: #d1b3ff;}
+.ctaDisabled { background-color: #343a40; color: #8899a6; cursor: not-allowed; opacity: 0.6; }
+
+
+/* --- Botão de Carteira --- */
+.walletButton {
+  background-color: var(--lab-bg-secondary); color: var(--text-primary);
+  border: 1px solid var(--lab-border); padding: 0.6rem 1rem;
+  border-radius: 5px; cursor: pointer; transition: all 0.2s ease;
+}
+.walletButton:hover { border-color: var(--cyan-glow); background-color: var(--lab-bg); }
+.walletDropdown {
+  position: absolute; top: 110%; right: 0; background-color: var(--lab-bg-secondary);
+  border: 1px solid var(--lab-border); border-radius: 5px; padding: 0.5rem; z-index: 101;
+}
+.walletDropdown button {
+  width: 100%; background-color: var(--accent-red); color: white;
+  border: none; padding: 0.5rem 1rem; border-radius: 4px;
+}
+
+/* --- Layout Principal --- */
+.main {
+  padding: 1rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.topSection {
+    margin-bottom: 2rem;
+}
+
+/* --- O CORREDOR E AS PORTAS DE CONTENÇÃO (TAMANHO RESTAURADO) --- */
+.labCorridor {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  min-height: 70vh;
+}
+
+.containmentDoor {
+  flex: 1;
+  max-width: 250px;
+  border: 2px solid var(--lab-border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #0a1422, #03080f);
+  padding: 1.5rem;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  cursor: pointer; transition: all 0.3s ease; position: relative;
+  overflow: hidden; box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+.containmentDoor:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--rarity-color, var(--cyan-glow));
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--rarity-color, var(--cyan-glow));
+}
+.doorStripe {
+  width: 100%; height: 8px;
+  background-color: var(--rarity-color, var(--cyan-glow));
+  box-shadow: 0 0 15px var(--rarity-color, var(--cyan-glow));
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+}
+.doorTitle {
+  font-size: 1.8rem; font-weight: 700; letter-spacing: 1px;
+  margin-bottom: 0.5rem; color: var(--text-primary);
+}
+.doorSubtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.doorCommon { --rarity-color: #f8f9fa; }
+.doorUncommon { --rarity-color: #28a745; }
+.doorRare { --rarity-color: #007bff; }
+.doorEpic { --rarity-color: #dc3545; }
+.doorLegendary { --rarity-color: #f5b040; }
+
+
+/* --- A ALA DE CONTENÇÃO (LAYOUT CORRIGIDO) --- */
+.containmentWing {
+  padding: 1rem;
+  animation: fadeInWing 0.5s ease-out;
+}
+@keyframes fadeInWing { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+.wingHeader {
+  display: flex; align-items: center; justify-content: center;
+  position: relative; margin-bottom: 1.5rem;
+}
+.backButton {
+  position: absolute; left: 0;
+  background: transparent; border: 1px solid var(--lab-border);
+  color: var(--text-secondary); padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 5px; cursor: pointer; transition: all 0.2s ease;
+}
+.backButton:hover { border-color: var(--cyan-glow); color: var(--cyan-glow); }
+.wingTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px var(--rarity-color, var(--cyan-glow));
+  color: var(--rarity-color, var(--text-primary));
+}
+
+.wingLayout {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.mainWingContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cardsRow {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 240px));
+  justify-content: center; /* Centraliza o grid se houver espaço sobrando */
+  gap: 1.5rem; /* Aumenta um pouco o espaço entre os cards */
+}
+.card {
+  display: flex; flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  background: linear-gradient(160deg, rgba(10, 20, 34, 0.8), rgba(3, 8, 15, 0.9));
+  border: 1px solid var(--lab-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--cyan-text); }
+
+.imageWrap {
+  width: 100%; height: 120px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  background-color: var(--lab-bg);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.imageWrap::before, .imageWrap::after { display: none; } 
+.nftImagePlaced { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+
+.addNFTButton {
+  width: 100%; height: 100%; background-color: rgba(3, 8, 15, 0.7);
+  color: var(--cyan-text); border: 1px dashed var(--lab-border);
+  border-radius: 4px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+  z-index: 5; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.addNFTButton:hover { background-color: rgba(0, 229, 255, 0.1); border-color: var(--cyan-glow); }
+
+.cardInner {
+  width: 100%; display: flex; flex-direction: column; flex-grow: 1;
+  background: none; border: none; padding: 0;
+}
+.cardTitle {
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 0.5rem; padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--lab-border);
+}
+
+.infoColumn { display: flex; flex-direction: column; gap: 0.25rem; margin-top: auto; }
+.badge { display: flex; justify-content: space-between; padding: 0.1rem 0; font-size: 0.85rem; }
+.badgeLabel { color: var(--text-secondary); text-transform: uppercase; }
+.badgeValue { font-weight: 700; color: var(--text-primary); text-shadow: 0 0 5px rgba(102, 250, 255, 0.5); }
+
+.controls {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.5rem; margin: 0.5rem 0;
+}
+.btn { padding: 0.5rem; font-size: 1rem; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.2s ease; }
+.btnPlay { background-color: var(--accent-green); color: white; }
+.btnPlay:hover:not(:disabled) { background-color: #218838; }
+.btnUpgrade { background-color: var(--cyan-text); color: var(--lab-bg); }
+.btnUpgrade:hover:not(:disabled) { background-color: var(--cyan-glow); }
+.btnPrestige { background-color: var(--accent-yellow); color: #212529; }
+.btnPrestige:hover:not(:disabled) { background-color: #e0a800; }
+.btn:disabled { background-color: #343a40; cursor: not-allowed; opacity: 0.6; }
+
+.timerBar { width: 100%; height: 4px; background-color: rgba(0,0,0,0.3); border-radius: 5px; margin: 0.25rem 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); }
+.timerFill { height: 100%; background: var(--cyan-glow); border-radius: 5px; transition: width 0.5s linear; box-shadow: 0 0 8px var(--cyan-glow); }
+.timerText { text-align: center; font-size: 0.8rem; color: var(--text-secondary); }
+
+/* --- Animação de Feedback Visual --- */
+@keyframes floatUpFadeOut { from { opacity: 1; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, -60px); } }
+.bonusFeedback { position: absolute; top: 40%; left: 50%; background-color: rgba(0, 229, 255, 0.8); color: var(--lab-bg); padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid var(--cyan-glow); font-weight: bold; font-size: 1.1rem; text-shadow: 1px 1px 2px #000; z-index: 10; pointer-events: none; animation: floatUpFadeOut 2s ease-out forwards; }
+.upgradeFlash { animation: flash-animation 0.6s ease-out; }
+@keyframes flash-animation { 0%, 100% { box-shadow: none; } 50% { box-shadow: 0 0 25px var(--cyan-glow); } }
+
+/* --- Painéis (Warehouse, Equipamentos, etc.) --- */
+.fullRowWrapper { display: flex; gap: 1rem; align-items: center; }
+.rowBoostButtonContainer { display: flex; align-items: center; }
+.btnAdBoost { background-color: var(--lab-bg-secondary); border: 1px solid var(--lab-border); color: var(--cyan-text); padding: 0.8rem; font-size: 1.2rem; }
+.rightSidebar { width: 250px; flex-shrink: 0; }
+.warehousePanelWrapper { padding: 0 1.5rem 1.5rem 1.5rem; max-width: 1800px; margin: 0 auto; }
+.warehousePanel { background-color: var(--lab-bg-secondary); border: 1px solid var(--lab-border); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+.wHeader { display: flex; align-items: center; gap: 0.5rem; font-weight: bold; color: var(--text-primary); border-bottom: 1px solid var(--lab-border); padding-bottom: 0.8rem; margin-bottom: 0.8rem; }
+.messageBox { padding: 0.5rem; background-color: var(--lab-bg); border-radius: 4px; min-height: 50px; color: var(--text-secondary); }
+.ctaCollectAll { width: 100%; margin-top: 1rem; padding: 0.75rem 1.5rem; font-size: 1.1rem; background-color: var(--accent-green); color: white; border: none; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background-color 0.2s ease; }
+.ctaCollectAll:hover:not(:disabled) { background-color: #218838; }
+.ctaCollectAll:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
+
+/* --- Modais Gerais --- */
+.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(3, 8, 15, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modalCard { background-color: var(--lab-bg-secondary); border: 1px solid var(--lab-border); border-radius: 8px; padding: 2rem; width: 90%; max-width: 500px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); color: var(--text-primary); }
+.modalCard h3 { text-align: center; color: var(--cyan-text); margin-top: 0; }
+.modalActions { margin-top: 1.5rem; display: flex; justify-content: flex-end; }
+.btnPrimary { background-color: var(--cyan-text); color: var(--lab-bg); border: none; padding: 0.6rem 1.2rem; border-radius: 5px; cursor: pointer; font-weight: 600; }
+.btnPrimary:disabled { background-color: #343a40; }
+.btnSecondary { background-color: #6c757d; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 5px; cursor: pointer; }
+
+/* --- Notificações --- */
+.notification { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); padding: 1rem 2rem; border-radius: 8px; color: white; z-index: 1100; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); background-color: var(--lab-bg-secondary); border: 1px solid var(--lab-border); }
+.notification.success { border-left: 5px solid var(--accent-green); }
+.notification.error { border-left: 5px solid var(--accent-red); }
+.notification.info { border-left: 5px solid var(--cyan-glow); }
+
+/* --- Modal de NFT --- */
+.nftModal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(3, 8, 15, 0.85); backdrop-filter: blur(5px);
+  display: flex; justify-content: center; align-items: center; z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+.nftModalContent {
+  background: var(--lab-bg-secondary); border: 1px solid var(--lab-border);
+  border-radius: 8px; padding: 2rem; width: 90%; max-width: 900px; max-height: 80vh;
+  display: flex; flex-direction: column; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+.nftModalContent h3 { text-align: center; color: var(--cyan-text); margin-top: 0; margin-bottom: 1.5rem; flex-shrink: 0; font-size: 1.5rem; }
+.nftListContainer {
+  flex-grow: 1; overflow-y: auto; display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem; padding: 1rem;
+  background: var(--lab-bg); border-radius: 4px; border: 1px solid var(--lab-border);
+}
+.nftListItem {
+  background: var(--lab-bg-secondary); border: 1px solid var(--lab-border);
+  border-radius: 8px; padding: 0.5rem;
+  transition: all 0.2s ease; cursor: pointer; text-align: center;
+}
+.nftListItem:hover { transform: translateY(-5px); border-color: var(--cyan-glow); box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
+.nftListItem.disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+.nftListImage { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 0.75rem; }
+.nftListInfo { display: flex; flex-direction: column; gap: 0.5rem; }
+.nftListName { font-weight: 600; font-size: 1rem; color: var(--text-primary); }
+.nftListRarity { align-self: center; padding: 0.2rem 0.8rem; font-size: 0.8rem; font-weight: bold; color: white; border-radius: 10px; }
+.closeModal {
+  margin-top: 1.5rem; align-self: center; background-color: #6c757d; color: white;
+  border: none; padding: 0.6rem 2rem; border-radius: 5px; cursor: pointer; flex-shrink: 0;
+}
+
+/* --- Honeypot Anti-Bot --- */
+.honeypot { opacity: 0 !important; position: absolute !important; top: 0; left: -9999px !important; z-index: -1 !important; pointer-events: none !important; }
+
+/* --- Botão Premium e Efeitos --- */
+.premiumButtonContainer { position: relative; }
+.ctaGold { background-color: var(--accent-yellow); color: #212529; border-color: #e0a800; font-weight: bold; }
+.ctaGold:hover { background-color: #e0a800; }
+.premiumActive { background-color: var(--accent-green); color: white; border-color: #218838; font-weight: bold; }
+.premiumActive:hover { background-color: #218838; }
+
+/* --- Tela de Conectar Carteira --- */
+.connectWalletPrompt { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh; text-align: center; animation: fadeInPrompt 1s ease-out; }
+@keyframes fadeInPrompt { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.promptLogo { width: 200px; height: 200px; margin-bottom: 2rem; }
+.promptTitle { font-size: 2.5rem; font-weight: bold; color: #fff; margin: 0 0 1rem 0; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.promptSubtitle { font-size: 1.2rem; color: #aeb9c5; max-width: 500px; margin-bottom: 2.5rem; }
+.promptConnectButton {
+  background: var(--cyan-glow); color: var(--lab-bg); border: none;
+  padding: 1rem 2.5rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold;
+  cursor: pointer; display: flex; align-items: center; gap: 0.8rem;
+  transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+}
+.promptConnectButton:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6); }
+
+/* --- Seletores de Idioma --- */
+.languageSelector { display: flex; align-items: center; gap: 0.5rem; margin-right: 1rem; }
+.languageSelector button {
+  background: transparent; border: 1px solid var(--lab-border); color: var(--text-secondary);
+  padding: 0.5rem; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: all 0.2s ease; border-radius: 4px;
+}
+.languageSelector button:hover { background: var(--lab-bg-secondary); color: var(--text-primary); }
+.languageSelector button.activeLang { background: var(--cyan-text); border-color: var(--cyan-text); color: var(--lab-bg); }
+
+/* --- Estilos para Destravar Slots --- */
+.slotOverlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(3, 8, 15, 0.8); z-index: 6;
+  display: flex; justify-content: center; align-items: center;
+  border-radius: 8px; cursor: pointer;
+}
+.unlockButtonVisual {
+  background-color: var(--accent-yellow); color: #212529; border: none;
+  padding: 0.8rem 1.5rem; border-radius: 5px; font-weight: bold; font-size: 1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: transform 0.2s ease;
+}
+.unlockButtonVisual:hover { transform: scale(1.05); }
+
+/* --- RESPONSIVIDADE PARA O JOGO --- */
+@media (max-width: 1400px) {
+  .labCorridor { flex-wrap: wrap; }
+}
+@media (max-width: 1200px) {
+  .wingLayout { flex-direction: column; }
+  .rightSidebar { width: 100%; flex-direction: row; gap: 1rem; justify-content: center; }
+}
+@media (max-width: 768px) {
+  .header { flex-direction: column; gap: 1rem; }
+  .nav { justify-content: center; flex-wrap: wrap; gap: 0.5rem; position: static; transform: none; }
+  .cta { padding: 0.6rem 1rem; font-size: 0.9rem; }
+  .cardsRow { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .rightSidebar { flex-direction: column; }
+}
+
+/* --- EFEITO PULSANTE --- */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 5px var(--cyan-glow), 0 0 10px var(--cyan-glow); }
+  50% { box-shadow: 0 0 20px var(--cyan-glow), 0 0 35px var(--cyan-glow); }
+  100% { box-shadow: 0 0 5px var(--cyan-glow), 0 0 10px var(--cyan-glow); }
+}
+
+.specialActionsContainer {
+  display: flex;
+  gap: 0.75rem;
+  padding: 8px;
+  border-radius: 8px;
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.ctaSpecial {
+  background-color: var(--accent-yellow);
+  color: #212529;
+  border: 1px solid #e0a800;
+  font-weight: bold;
+}
+.ctaSpecial:hover:not(:disabled) {
+  background-color: #e0a800;
+  filter: brightness(1.2);
+}
+
+/* ================================================================= */
+/* === INÍCIO: ESTILOS DO NOVO WALLET MODAL (ADICIONADO AQUI)      === */
+/* ================================================================= */
+
+.walletModalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Z-index alto para ficar sobre tudo */
+  backdrop-filter: blur(5px);
+}
+
+.walletModalCard {
+  background: #0c101c;
+  border: 1px solid #00aaff;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 170, 255, 0.3);
+  color: #fff;
+  width: 90%;
+  max-width: 700px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Herda a animação de fade-in dos outros modais */
+  animation: fadeIn 0.3s ease-out;
+}
+
+.walletModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+  padding-bottom: 16px;
+}
+
+.walletModalHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #00aaff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.walletCloseButton {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.walletCloseButton:hover {
+  color: #ff4d4d;
+}
+
+.walletInfo {
+  background: rgba(0, 24, 41, 0.5);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 170, 255, 0.1);
+}
+
+.addressLabel {
+  font-size: 0.9rem;
+  color: #88a8c4;
+  margin: 0 0 4px 0;
+}
+
+.addressValue {
+  font-family: 'monospace';
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin: 0 0 12px 0;
+  word-break: break-all;
+}
+
+.ronBalance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.balancesContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+/* Adicionado media query para duas colunas em telas maiores */
+@media (min-width: 600px) {
+    .balancesContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+.balanceSection h4 {
+  color: #00aaff;
+  margin-top: 0;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+  padding-bottom: 8px;
+}
+
+.sectionDescription {
+  font-size: 0.8rem;
+  color: #88a8c4;
+  margin-top: -5px;
+  margin-bottom: 15px;
+  min-height: 30px;
+}
+
+.tokenList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tokenRow {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background: rgba(0, 24, 41, 0.3);
+  border-radius: 6px;
+}
+
+.tokenIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.tokenName {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.tokenAmount {
+  font-family: 'monospace';
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.walletModalActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.disconnectButton {
+  background-color: #c53030;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.disconnectButton:hover {
+  background-color: #e53e3e;
+}
+/* ================================================================= */
+/* === STYLES/HOME.MODULE.CSS - VERSÃO COMPLETA E ATUALIZADA      === */
+/* ================================================================= */
+
+/* --- FUNDO E LAYOUT GERAL --- */
+@keyframes heartbeat {
+  from { background-position: 0 center; }
+  to { background-position: -1000px center; }
+}
+
+.canvas {
+  min-height: 100vh;
+  padding: 0;
+  color: var(--text-primary);
+  background-color: var(--lab-bg);
+  font-family: var(--font-primary);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100'%3E%3Cpath d='M0,50 L350,50 L370,30 L390,70 L410,50 L600,50 L615,40 L625,60 L635,50 L1000,50' fill='none' stroke='%2300e5ff' stroke-width='2' stroke-opacity='0.2'/%3E%3C/svg%E"),
+    radial-gradient(rgba(31, 58, 90, 0.5) 1px, transparent 1px);
+  background-repeat: repeat-x, repeat;
+  background-position: 0 center, 0 0;
+  background-size: 1000px 100px, 20px 20px;
+  animation: heartbeat 10s linear infinite;
+  overflow-x: hidden;
+}
+
+/* --- HEADER E NAVEGAÇÃO --- */
+.header {
+  display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 2rem;
+  background-color: rgba(3, 8, 15, 0.7); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--lab-border); position: sticky; top: 0; z-index: 100;
+}
+.brand { font-weight: 700; font-size: 1.8rem; color: var(--text-primary); text-shadow: 0 0 8px var(--cyan-glow); }
+.nav {
+  position: absolute; left: 50%; transform: translateX(-50%); display: flex;
+  flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.navTopRow, .navBottomRow {
+  display: flex; justify-content: center; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+
+/* ... (resto do seu CSS para .cta, .labCorridor, .card, etc., permanece o mesmo) ... */
+
+/* ================================================================= */
+/* === INÍCIO: ESTILOS DO NOVO WALLET MODAL (ADICIONADO AQUI)      === */
+/* ================================================================= */
+
+.walletModalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  backdrop-filter: blur(5px);
+}
+
+.walletModalCard {
+  background: #0c101c;
+  border: 1px solid #00aaff;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 170, 255, 0.3);
+  color: #fff;
+  width: 90%;
+  max-width: 700px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.walletModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+  padding-bottom: 16px;
+}
+
+.walletModalHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #00aaff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.walletCloseButton {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.walletCloseButton:hover {
+  color: #ff4d4d;
+}
+
+.walletInfo {
+  background: rgba(0, 24, 41, 0.5);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 170, 255, 0.1);
+}
+
+.addressLabel {
+  font-size: 0.9rem;
+  color: #88a8c4;
+  margin: 0 0 4px 0;
+}
+
+.addressValue {
+  font-family: 'monospace';
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin: 0 0 12px 0;
+  word-break: break-all;
+}
+
+.ronBalance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.balancesContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 600px) {
+    .balancesContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.balanceSection h4 {
+  color: #00aaff;
+  margin-top: 0;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+  padding-bottom: 8px;
+}
+
+.sectionDescription {
+  font-size: 0.8rem;
+  color: #88a8c4;
+  margin-top: -5px;
+  margin-bottom: 15px;
+  min-height: 30px;
+}
+
+.tokenList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tokenRow {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background: rgba(0, 24, 41, 0.3);
+  border-radius: 6px;
+}
+
+.tokenIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.tokenName {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.tokenAmount {
+  font-family: 'monospace';
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.walletModalActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.disconnectButton {
+  background-color: #c53030;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.disconnectButton:hover {
+  background-color: #e53e3e;
+}
+
+/* ================================================================= */
+/* === NOVOS ESTILOS PARA O MODAL DE NFT EM FORMATO DE LISTA       === */
+/* ================================================================= */
+
+/* Novo container para a lista, remove o grid */
+.nftListContainerAsList {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* Organiza os itens verticalmente */
+  gap: 0.75rem; /* Espaço entre os itens da lista */
+  padding: 0.5rem;
+  background: var(--lab-bg);
+  border-radius: 4px;
+  border: 1px solid var(--lab-border);
+}
+
+/* Novo estilo para cada item da lista */
+.nftListItemAsList {
+  background: var(--lab-bg-secondary);
+  border: 1px solid var(--lab-border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex; /* Alinha a imagem e o texto lado a lado */
+  align-items: center;
+  gap: 1rem;
+}
+
+.nftListItemAsList:hover {
+  border-color: var(--cyan-glow);
+  background-color: rgba(0, 229, 255, 0.05);
+}
+
+.nftListItemAsList.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: var(--lab-bg-secondary);
+}
+
+/* Imagem pequena 30x30 */
+.nftListImageAsList {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0; /* Impede que a imagem encolha */
+}
+
+/* Container para o nome e a raridade */
+.nftListInfoAsList {
+  display: flex;
+  flex-direction: column; /* Nome em cima, raridade embaixo */
+  align-items: flex-start; /* Alinha à esquerda */
+  gap: 0.25rem;
+  flex-grow: 1;
+}
+
+/* /styles/Home.module.css */
+
+/* Adicione este código no final do arquivo */
+
+/* 1. O Contêiner da Grade */
+.nftGridContainer {
+  display: grid; /* Ativa o modo de grade */
+  grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de largura igual */
+  gap: 1.5rem; /* Espaçamento entre os cards */
+  padding: 1rem;
+  max-height: 60vh; /* Mantém a altura máxima para ter barra de rolagem */
+  overflow-y: auto; /* Adiciona a barra de rolagem vertical quando necessário */
+}
+
+/* 2. Cada Card de NFT Individual */
+.nftGridItem {
+  background-color: #1a202c; /* Fundo escuro para o card */
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column; /* Organiza a imagem e o texto verticalmente */
+  align-items: center; /* Centraliza o conteúdo */
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.nftGridItem:not(.disabled):hover {
+  transform: translateY(-5px); /* Efeito de "levantar" o card */
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.5); /* Sombra azul ao passar o mouse */
+}
+
+/* Estilo para NFTs desativados (já em uso) */
+.nftGridItem.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: #2d3748;
+}
+
+/* 3. A Imagem dentro do Card */
+.nftGridImage {
+  width: 100%;
+  max-width: 120px; /* Tamanho máximo da imagem */
+  height: 120px;
+  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+/* 4. O Nome e a Raridade */
+.nftGridName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #edf2f7;
+}
+
+.nftGridRarity {
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: #1a202c; /* Cor do texto da raridade */
+}

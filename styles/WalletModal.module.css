@@ -1,0 +1,160 @@
+css
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modalCard {
+    background: #0c101c;
+    border: 1px solid #00aaff;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 170, 255, 0.3);
+    color: #fff;
+    width: 90%;
+    max-width: 700px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+    padding-bottom: 16px;
+}
+
+.modalHeader h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #00aaff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.closeButton {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.closeButton:hover {
+    color: #ff4d4d;
+}
+
+.walletInfo {
+    background: rgba(0, 24, 41, 0.5);
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 170, 255, 0.1);
+}
+
+.addressLabel {
+    font-size: 0.9rem;
+    color: #88a8c4;
+    margin: 0 0 4px 0;
+}
+
+.addressValue {
+    font-family: 'monospace';
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin: 0 0 12px 0;
+    word-break: break-all;
+}
+
+.ronBalance {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.balancesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.balanceSection h4 {
+    color: #00aaff;
+    margin-top: 0;
+    border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+    padding-bottom: 8px;
+}
+
+.sectionDescription {
+    font-size: 0.8rem;
+    color: #88a8c4;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    min-height: 30px;
+}
+
+.tokenList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tokenRow {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 24, 41, 0.3);
+    border-radius: 6px;
+}
+
+.tokenIcon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.tokenName {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.tokenAmount {
+    font-family: 'monospace';
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.disconnectButton {
+    background-color: #c53030;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.disconnectButton:hover {
+    background-color: #e53e3e;
+}

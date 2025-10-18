@@ -4,14 +4,14 @@ const getBaseUrl = () => {
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`;
   }
-  
+
   // Para ambiente local (desenvolvimento)
-  if (process.env.NODE_ENV === 'development') {
-    return 'http://localhost:3000';
+  if (process.env.NODE_ENV === "development") {
+    return "https://qjpcwp-3001.csb.app/";
   }
 
   // Fallback para seu domínio de produção se VERCEL_URL não estiver definida
-  return 'https://www.fumegator.xyz';
+  return "https://www.fumegator.xyz";
 };
 
 export default getBaseUrl;

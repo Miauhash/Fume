@@ -1,26 +1,20 @@
-// context/RoninContext.js (VERSÃO FINAL E CORRIGIDA)
+// context/RoninContext.js
 
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { ethers } from 'ethers';
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
+import { ethers } from "ethers";
 
 // Criando o contexto
 const RoninContext = createContext();
 
-// Definições de rede para fácil manutenção
-const SAIGON_NETWORK = {
-  chainId: '0x7e5', // 2021 em hexadecimal
-  chainName: 'Ronin Saigon Testnet',
-  rpcUrls: ['https://saigon-testnet.roninchain.com/rpc'],
-  nativeCurrency: { name: 'RON', symbol: 'RON', decimals: 18 },
-  blockExplorerUrls: ['https://saigon-explorer.roninchain.com/'],
-};
-
-const MAINNET_NETWORK = {
-  chainId: '0x7e4', // 2020 em hexadecimal
-  chainName: 'Ronin Mainnet',
-  rpcUrls: ['https://api.roninchain.com/rpc'],
-  nativeCurrency: { name: 'RON', symbol: 'RON', decimals: 18 },
-  blockExplorerUrls: ['https://app.roninchain.com/'],
+// Hook customizado para usar o contexto facilmente
+export const useRonin = () => {
+  return useContext(RoninContext);
 };
 
 // Componente Provedor
@@ -30,21 +24,31 @@ export function RoninProvider({ children }) {
   const [userAddress, setUserAddress] = useState(null);
   const [network, setNetwork] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Função para conectar a carteira
   const connectWallet = useCallback(async () => {
+    // Adicionamos uma verificação extra aqui também
+    if (
+      typeof window === "undefined" ||
+      !window.ronin ||
+      !window.ronin.provider
+    ) {
+      console.error("Ronin Wallet not found. Please install the extension.");
+      setError("Por favor, instale a Ronin Wallet para continuar.");
+      // Opcional: Redirecionar para a página de download
+      // window.open('https://wallet.skymavis.com/', '_blank');
+      return;
+    }
+
     setIsLoading(true);
+    setError(null);
     try {
-      if (!window.ronin || !window.ronin.provider) {
-        throw new Error('Por favor, instale a Ronin Wallet.');
-      }
-
-      // Conecta ao provedor da carteira no navegador
-      const web3Provider = new ethers.providers.Web3Provider(window.ronin.provider, 'any');
-
-      // Solicita ao usuário para conectar sua conta
-      await web3Provider.send('eth_requestAccounts', []);
-
+      const web3Provider = new ethers.providers.Web3Provider(
+        window.ronin.provider,
+        "any"
+      );
+      await web3Provider.send("eth_requestAccounts", []);
       const currentSigner = web3Provider.getSigner();
       const address = await currentSigner.getAddress();
       const net = await web3Provider.getNetwork();
@@ -53,10 +57,9 @@ export function RoninProvider({ children }) {
       setSigner(currentSigner);
       setUserAddress(address);
       setNetwork(net);
-
-    } catch (error) {
-      console.error("Falha ao conectar a carteira Ronin:", error);
-      // Limpa o estado em caso de erro na conexão
+    } catch (e) {
+      console.error("Failed to connect Ronin Wallet:", e);
+      setError("Falha ao conectar a carteira. Por favor, tente novamente.");
       disconnectWallet();
     } finally {
       setIsLoading(false);
@@ -73,28 +76,33 @@ export function RoninProvider({ children }) {
 
   // Efeito para lidar com mudanças de conta ou rede
   useEffect(() => {
-    const roninProvider = window.ronin?.provider;
-    if (roninProvider) {
+    // A VERIFICAÇÃO MAIS IMPORTANTE - SÓ EXECUTA NO NAVEGADOR
+    if (
+      typeof window !== "undefined" &&
+      window.ronin &&
+      window.ronin.provider
+    ) {
+      const roninProvider = window.ronin.provider;
+
       const handleAccountsChanged = (accounts) => {
         if (accounts.length === 0) {
           disconnectWallet();
         } else {
-          // Recarrega a página para reiniciar o estado do jogo com a nova conta
           window.location.reload();
         }
       };
-      
+
       const handleChainChanged = () => {
-        // Recarrega para obter o novo provider e informações da rede
         window.location.reload();
       };
 
-      roninProvider.on('accountsChanged', handleAccountsChanged);
-      roninProvider.on('chainChanged', handleChainChanged);
+      roninProvider.on("accountsChanged", handleAccountsChanged);
+      roninProvider.on("chainChanged", handleChainChanged);
 
+      // Função de limpeza para remover os listeners quando o componente for desmontado
       return () => {
-        roninProvider.removeListener('accountsChanged', handleAccountsChanged);
-        roninProvider.removeListener('chainChanged', handleChainChanged);
+        roninProvider.removeListener("accountsChanged", handleAccountsChanged);
+        roninProvider.removeListener("chainChanged", handleChainChanged);
       };
     }
   }, []);
@@ -105,14 +113,12 @@ export function RoninProvider({ children }) {
     userAddress,
     network,
     isLoading,
+    error,
     connectWallet,
     disconnectWallet,
   };
 
-  return <RoninContext.Provider value={value}>{children}</RoninContext.Provider>;
+  return (
+    <RoninContext.Provider value={value}>{children}</RoninContext.Provider>
+  );
 }
-
-// Hook customizado para usar o contexto facilmente
-export const useRonin = () => {
-  return useContext(RoninContext);
-};

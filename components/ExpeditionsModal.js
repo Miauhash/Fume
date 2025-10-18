@@ -145,7 +145,7 @@ export default function ExpeditionsModal({ userWallet, onClose, onTransactionCom
   };
 
   // --- MIGRAÇÃO RONIN: Lógica de filtro agora usa `nft.id` ou `nft.tokenId`
-  const activeExpeditionNftIds = new Set(expeditions.filter(e => !e.rewardClaimed).map(e => e.nftId)); // Supondo que o backend retorne `nftId`
+  const activeExpeditionNftIds = new Set(expeditions.filter(e => !e.rewardClaimed).map(e => e.tokenId));
   const availableNFTs = userNFTs.filter(nft => !activeExpeditionNftIds.has(nft.id || nft.tokenId));
   const expeditionsInProgress = expeditions.filter(e => !e.rewardClaimed && new Date() < new Date(e.endsAt));
   const expeditionsToClaim = expeditions.filter(e => !e.rewardClaimed && new Date() >= new Date(e.endsAt));
